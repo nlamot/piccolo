@@ -1,4 +1,4 @@
-package piccolo
+package helloworld
 
 import (
   "encoding/json"
