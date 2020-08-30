@@ -7,6 +7,7 @@ steps:
     - --trigger-http
     - --source=./ # Function source files
     - --entry-point=HelloWorld # Function entry point
+    - --region=europe-west1
     - helloWorld # Function name
   waitFor: ['-']
   id: 'hello-world'
