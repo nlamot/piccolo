@@ -8,5 +8,5 @@ steps:
     - -source=./ # Function source files
     - -entry-point=HelloWorld # Function entry point
     - helloWorld # Function name
-  waitFor: ['_']
+  waitFor: ['-']
   id: 'hello-world'
