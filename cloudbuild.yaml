@@ -1,4 +1,14 @@
 steps:
+# Configure the Hello World cloud function
+- name: 'gcr.io/cloud-builders/gcloud'
+  args:
+    - functions
+    - add-iam-policy-binding
+    - --members="allUsers"
+    - --roles="roles/cloudfunctions.invoker"
+    - helloWorld # Function name
+  waitFor: ['-']
+  id: 'hello-world-access'
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
     - functions
@@ -10,5 +20,5 @@ steps:
     - --region=europe-west1
     - --allow-unauthenticated # This function is publicly available 
     - helloWorld # Function name
-  waitFor: ['-']
+  waitFor: ['hello-world-access']
   id: 'hello-world'
