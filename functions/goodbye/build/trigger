@@ -1,0 +1,10 @@
+name: goodbye
+description: Cloud function goodbye
+filename: functions/goodbye/build/cloudbuild.yaml
+github:
+  name: piccolo
+  owner: nlamot
+  push:
+    branch: ^master$
+includedFiles:
+- functions/goodbye/**
