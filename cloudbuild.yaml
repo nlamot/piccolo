@@ -5,7 +5,7 @@ steps:
     - functions
     - add-iam-policy-binding
     - --member="allUsers"
-    - --roles="roles/cloudfunctions.invoker"
+    - --role="roles/cloudfunctions.invoker"
     - helloWorld # Function name
   waitFor: ['-']
   id: 'hello-world-access'
