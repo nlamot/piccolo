@@ -4,7 +4,7 @@ steps:
   args:
     - functions
     - add-iam-policy-binding
-    - --members="allUsers"
+    - --member="allUsers"
     - --roles="roles/cloudfunctions.invoker"
     - helloWorld # Function name
   waitFor: ['-']
