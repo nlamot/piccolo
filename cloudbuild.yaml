@@ -4,4 +4,4 @@ steps:
     args:
       - '-c'
       - |
-        gcloud beta builds triggers create github helloworld --included-files "functions/helloworld/*" --repo-name=piccolo --repo-owner=nlamot --branch-pattern="^master$"
+        gcloud beta builds triggers create github --included-files "functions/helloworld/*" --repo-name=piccolo --repo-owner=nlamot --branch-pattern="^master$"
