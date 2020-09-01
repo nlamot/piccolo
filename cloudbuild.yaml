@@ -8,6 +8,7 @@ steps:
     - --source=./functions/helloworld # Function source files
     - --entry-point=HelloWorld # Function entry point
     - --region=europe-west1
+    - --allow-unauthenticated # This function is publicly available 
     - helloWorld # Function name
   waitFor: ['-']
   id: 'hello-world'
