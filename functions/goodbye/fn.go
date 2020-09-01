@@ -14,11 +14,11 @@ func GoodBye(w http.ResponseWriter, r *http.Request) {
     Message string `json:"message"`
   }
   if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
-    fmt.Fprint(w, "Goodbye!")
+    fmt.Fprint(w, "Goodbye, amigo!")
     return
   }
   if d.Message == "" {
-    fmt.Fprint(w, "Goodbye!")
+    fmt.Fprint(w, "Goodbye, amigo!")
     return
   }
   fmt.Fprint(w, html.EscapeString(d.Message))
