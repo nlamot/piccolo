@@ -1,15 +1,7 @@
 steps:
-# Configure the Hello World cloud function
-- name: 'gcr.io/cloud-builders/gcloud'
-  args:
-    - functions
-    - deploy
-    - --runtime=go113
-    - --trigger-http
-    - --source=./functions/helloworld # Function source files
-    - --entry-point=HelloWorld # Function entry point
-    - --region=europe-west1
-    - --allow-unauthenticated # This function is publicly available 
-    - helloWorld # Function name
-  waitFor: ['-']
-  id: 'hello-world'
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        cloud beta builds triggers create github helloworld --included-files "functions/helloworld/*" --repo-name=piccolo --repo-owner=nlamot --branch-pattern="^master$"
