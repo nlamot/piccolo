@@ -7,4 +7,4 @@ github:
   push:
     branch: ^master$
 includedFiles:
-- functions/helloworld/*
+- functions/helloworld/**
