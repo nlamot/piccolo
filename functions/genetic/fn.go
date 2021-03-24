@@ -1,4 +1,4 @@
-package helloworld
+package genetic
 
 import (
   "encoding/json"
@@ -7,9 +7,9 @@ import (
   "net/http"
 )
 
-// HelloWorld prints the JSON encoded "message" field in the body
+// Generate prints the JSON encoded "message" field in the body
 // of the request or "Hello, World!" if there isn't one.
-func HelloWorld(w http.ResponseWriter, r *http.Request) {
+func Generate(w http.ResponseWriter, r *http.Request) {
   var d struct {
     Message string `json:"message"`
   }

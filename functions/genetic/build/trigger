@@ -1,10 +1,10 @@
-name: helloworld
-description: Cloud function helloworld
-filename: functions/helloworld/build/cloudbuild.yaml
+name: genetic
+description: Cloud function Genetic algorithm
+filename: functions/genetic/build/cloudbuild.yaml
 github:
   name: piccolo
   owner: nlamot
   push:
     branch: ^master$
 includedFiles:
-- functions/helloworld/**
+- functions/genetic/**

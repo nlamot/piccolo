@@ -6,10 +6,10 @@ steps:
     - deploy
     - --runtime=go113
     - --trigger-http
-    - --source=./functions/helloworld # Function source files
-    - --entry-point=HelloWorld # Function entry point
+    - --source=./functions/genetic # Function source files
+    - --entry-point=Generate # Function entry point
     - --region=europe-west1
     - --allow-unauthenticated # This function is publicly available 
-    - helloWorld # Function name
+    - genetic # Function name
   waitFor: ['-']
-  id: 'hello-world'
+  id: 'genetic'
