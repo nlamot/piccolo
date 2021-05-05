@@ -1,10 +1,10 @@
-name: generate-population
+name: generatepopulation
 description: Cloud function - Generate population
-filename: functions/generate-population/build/cloudbuild.yaml
+filename: functions/generatepopulation/build/cloudbuild.yaml
 github:
   name: piccolo
   owner: nlamot
   push:
     branch: ^master$
 includedFiles:
-- functions/generate-population/**
+- functions/generatepopulation/**

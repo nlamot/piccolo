@@ -1,3 +1,3 @@
-module piccolo.com/generate-population
+module piccolo.com/generatepopulation
 
 go 1.13

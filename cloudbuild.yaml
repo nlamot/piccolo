@@ -5,4 +5,4 @@ steps:
       - builds 
       - triggers 
       - import 
-      - --source=functions/generate-population/build/trigger
+      - --source=functions/generatepopulation/build/trigger
