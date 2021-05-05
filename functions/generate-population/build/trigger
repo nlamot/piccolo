@@ -1,6 +1,6 @@
 name: generate-population
 description: Cloud function - Generate population
-filename: functions/genetic/build/cloudbuild.yaml
+filename: functions/generate-population/build/cloudbuild.yaml
 github:
   name: piccolo
   owner: nlamot
