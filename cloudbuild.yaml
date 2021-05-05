@@ -5,18 +5,4 @@ steps:
       - builds 
       - triggers 
       - import 
-      - --source=functions/helloworld/build/trigger
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - beta 
-      - builds 
-      - triggers 
-      - import 
-      - --source=functions/goodbye/build/trigger
-  - name: 'gcr.io/cloud-builders/gcloud'
-    args:
-      - beta 
-      - builds 
-      - triggers 
-      - import 
-      - --source=functions/genetic/build/trigger
+      - --source=functions/generate-population/build/trigger

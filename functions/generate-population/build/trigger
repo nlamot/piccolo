@@ -1,5 +1,5 @@
-name: genetic
-description: Cloud function Genetic algorithm
+name: generate-population
+description: Cloud function - Generate population
 filename: functions/genetic/build/cloudbuild.yaml
 github:
   name: piccolo
@@ -7,4 +7,4 @@ github:
   push:
     branch: ^master$
 includedFiles:
-- functions/genetic/**
+- functions/generate-population/**
