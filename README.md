@@ -1,4 +1,4 @@
-# Piccolo Interneship Planner
+# Piccolo Internship Planner
 The purpose of the piccolo interenship planner is 
 * to provide a way to fit student teachers into the existing schedule of a high school, taking into account
   * the kind of interneship required by the students
