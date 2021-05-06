@@ -10,15 +10,15 @@ import (
 // GeneratePopulation generates the population for the genetic internship planner
 func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
 	var d struct {
-		Message string `json:"message"`
+		Name string `json:"name"`
 	}
 	if err := json.NewDecoder(r.Body).Decode(&d); err != nil {
-		fmt.Fprint(w, "Trying generatepopulation algorithm")
+		fmt.Fprint(w, "Hello, World!")
 		return
 	}
-	if d.Message == "" {
-		fmt.Fprint(w, "Trying generatepopulation algorithm")
+	if d.Name == "" {
+		fmt.Fprint(w, "Hello, World!")
 		return
 	}
-	fmt.Fprint(w, html.EscapeString(d.Message))
+	fmt.Fprint(w, "Hello, ", html.EscapeString(d.Name), "!")
 }

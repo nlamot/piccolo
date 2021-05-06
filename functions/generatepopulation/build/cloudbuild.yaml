@@ -1,5 +1,9 @@
 steps:
-# Configure the Hello World cloud function
+- name: 'mirror.gcr.io/library/golang'
+  args: ['go', 'version']
+- name: 'mirror.gcr.io/library/golang'
+  args: ['go', 'test']
+  dir: 'functions/generatepopulation'
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
     - functions
