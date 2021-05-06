@@ -7,7 +7,7 @@ import (
         "testing"
 )
 
-func TestHelloHTTP(t *testing.T) {
+func TestGeneratePopulation(t *testing.T) {
         tests := []struct {
                 body string
                 want string
