@@ -16,5 +16,7 @@ steps:
     - --region=europe-west1
     - --allow-unauthenticated # This function is publicly available 
     - generatepopulation # Function name
+  env:
+    - GO111MODULE=on # Enable the use of external go modules
   waitFor: ['-']
   id: 'generatepopulation'
