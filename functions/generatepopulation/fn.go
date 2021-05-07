@@ -7,27 +7,24 @@ import (
 	"html"
 	"log"
 	"net/http"
+	"os"
 
 	"cloud.google.com/go/firestore"
-	"github.com/tkanos/gonfig"
 )
 
 type Configuration struct {
-    Project string `env:"GCP_PROJECT"`
+	Project string
 }
 
-const IN_UNIT_TEST = "piccolo"
 var configuration Configuration
 var client *firestore.Client
 
 // Initialize connection to firestore
 func init() {
-	err := gonfig.GetConf("config.json", &configuration)
-	if err != nil {
-		log.Fatalf("Configuration Load: %v", err)
-	}
+	configuration.Project = os.Getenv("GCP_PROJECT")
 
-	if configuration.Project != IN_UNIT_TEST {
+	var err error
+	if configuration.Project != "" {
 		client, err = firestore.NewClient(context.Background(), configuration.Project)
 		if err != nil {
 			log.Printf("firestore.NewClient: %v", err)
@@ -38,10 +35,10 @@ func init() {
 
 // GeneratePopulation generates the population for the genetic internship planner
 func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
-	if (client == nil) {
+	if client == nil {
 		http.Error(w, "Internal error", http.StatusInternalServerError)
 		log.Printf("generatepopulation.GeneratePopulation: Firestore wasn't initialized correctly.")
-		return 
+		return
 	}
 	var d struct {
 		Name string `json:"name"`
