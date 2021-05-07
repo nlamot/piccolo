@@ -16,6 +16,7 @@ type Configuration struct {
     Project string `env:"GCP_PROJECT"`
 }
 
+const IN_UNIT_TEST = "piccolo"
 var configuration Configuration
 var client *firestore.Client
 
@@ -26,10 +27,12 @@ func init() {
 		log.Fatalf("Configuration Load: %v", err)
 	}
 
-	client, err = firestore.NewClient(context.Background(), configuration.Project)
-	if err != nil {
-		log.Printf("firestore.NewClient: %v", err)
-		return
+	if configuration.Project != IN_UNIT_TEST {
+		client, err = firestore.NewClient(context.Background(), configuration.Project)
+		if err != nil {
+			log.Printf("firestore.NewClient: %v", err)
+			return
+		}
 	}
 }
 
@@ -37,7 +40,7 @@ func init() {
 func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
 	if (client == nil) {
 		http.Error(w, "Internal error", http.StatusInternalServerError)
-		log.Printf("firestore.NewClient: Firestore wasn't initialized correctly.")
+		log.Printf("generatepopulation.GeneratePopulation: Firestore wasn't initialized correctly.")
 		return 
 	}
 	var d struct {
