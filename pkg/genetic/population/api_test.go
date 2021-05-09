@@ -7,10 +7,12 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
+	"cloud.google.com/go/firestore"
 )
 
 var request *http.Request
 var response *httptest.ResponseRecorder
+var client *firestore.Client
 
 func TestGeneratePopulation(t *testing.T) {
 	givenAValidFirestoreClient()
@@ -46,5 +48,5 @@ func givenAValidFirestoreClient() {
 
 func whenTheFunctionIsTriggered() {
 	response = httptest.NewRecorder()
-	GeneratePopulation(response, request)
+	Generate(response, request, client)
 }

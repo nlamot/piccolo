@@ -10,8 +10,8 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
-// GeneratePopulation generates the population for the genetic internship planner
-func GeneratePopulation(w http.ResponseWriter, r *http.Request, client *firestore.Client) {
+// Generate generates the population for the genetic internship planner
+func Generate(w http.ResponseWriter, r *http.Request, client *firestore.Client) {
 	if client == nil {
 		http.Error(w, "Internal error", http.StatusInternalServerError)
 		log.Printf("generatepopulation.GeneratePopulation: Firestore wasn't initialized correctly.")
