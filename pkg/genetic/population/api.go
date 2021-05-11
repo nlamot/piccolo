@@ -15,10 +15,10 @@ type PopulationHandler interface {
 }
 
 type populationHandler struct {
-	firestoreClient *db.FirestoreClient
+	firestoreClient db.FirestoreClient
 }
 
-func ProvidePopulationHandler(firestoreClient *db.FirestoreClient) PopulationHandler{
+func ProvidePopulationHandler(firestoreClient db.FirestoreClient) PopulationHandler{
 	return &populationHandler{
 		firestoreClient: firestoreClient,
 	}
