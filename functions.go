@@ -16,8 +16,8 @@ func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
 	container.Provide(db.ProvideFirestoreClient)
 	container.Provide(population.ProvidePopulationHandler)
 
-	err := container.Invoke(func(handler *population.PopulationHandler) {
-		(*handler).Generate(w, r)
+	err := container.Invoke(func(handler population.PopulationHandler) {
+		handler.Generate(w, r)
 	})
 
 	if err != nil {
