@@ -2,12 +2,12 @@ package gcp
 
 import "os"
 
-type GCPConfiguration struct {
+type Configuration struct {
 	ProjectID string
 }
 
-func GetGCPConfiguration() *GCPConfiguration {
-	return &GCPConfiguration{
+func GetConfiguration() *Configuration {
+	return &Configuration{
 		ProjectID: os.Getenv("GCP_PROJECT"),
 	}
 }

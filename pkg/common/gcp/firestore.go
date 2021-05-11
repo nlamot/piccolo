@@ -12,7 +12,7 @@ type FirestoreClient interface {
 	Close() error
 }
 
-func ProvideFirestoreClient(config *GCPConfiguration) FirestoreClient {
+func ProvideFirestoreClient(config *Configuration) FirestoreClient {
 	client, err := firestore.NewClient(context.Background(), config.ProjectID)
 	if err != nil {
 		log.Printf("firestore.NewClient: %v", err)

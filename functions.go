@@ -12,7 +12,7 @@ import (
 // GeneratePopulation generates the population for the genetic internship planner
 func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
 	container := dig.New()
-	container.Provide(gcp.GetGCPConfiguration)
+	container.Provide(gcp.GetConfiguration)
 	container.Provide(gcp.ProvideFirestoreClient)
 	container.Provide(population.ProvidePopulationHandler)
 
