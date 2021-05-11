@@ -1,37 +1,26 @@
 package planner
 
 import (
-	"context"
-	"log"
 	"net/http"
-	"os"
+
+	"go.uber.org/dig"
+	"piccolo.com/planner/pkg/common/config"
+	"piccolo.com/planner/pkg/common/db"
 	"piccolo.com/planner/pkg/genetic/population"
-
-	"cloud.google.com/go/firestore"
 )
-
-type Configuration struct {
-	Project string
-}
-
-var configuration Configuration
-var client *firestore.Client
-
-// Initialize connection to firestore
-func init() {
-	configuration.Project = os.Getenv("GCP_PROJECT")
-
-	var err error
-	if configuration.Project != "" {
-		client, err = firestore.NewClient(context.Background(), configuration.Project)
-		if err != nil {
-			log.Printf("firestore.NewClient: %v", err)
-			return
-		}
-	}
-}
 
 // GeneratePopulation generates the population for the genetic internship planner
 func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
-	population.Generate(w, r, client)
+	container := dig.New()
+	container.Provide(config.GetGCPConfiguration)
+	container.Provide(db.ProvideFirestoreClient)
+	container.Provide(population.ProvidePopulationHandler)
+
+	err := container.Invoke(func(handler *population.PopulationHandler) {
+		(*handler).Generate(w, r)
+	})
+
+	if err != nil {
+		panic(err)
+	}
 }

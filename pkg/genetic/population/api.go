@@ -6,13 +6,27 @@ import (
 	"html"
 	"log"
 	"net/http"
-	
-	"cloud.google.com/go/firestore"
+
+	"piccolo.com/planner/pkg/common/db"
 )
 
+type PopulationHandler interface {
+	Generate(http.ResponseWriter, *http.Request)
+}
+
+type populationHandler struct {
+	firestoreClient *db.FirestoreClient
+}
+
+func ProvidePopulationHandler(firestoreClient *db.FirestoreClient) PopulationHandler{
+	return &populationHandler{
+		firestoreClient: firestoreClient,
+	}
+}
+
 // Generate generates the population for the genetic internship planner
-func Generate(w http.ResponseWriter, r *http.Request, client *firestore.Client) {
-	if client == nil {
+func (p *populationHandler) Generate(w http.ResponseWriter, r *http.Request) {
+	if p.firestoreClient == nil {
 		http.Error(w, "Internal error", http.StatusInternalServerError)
 		log.Printf("generatepopulation.GeneratePopulation: Firestore wasn't initialized correctly.")
 		return
