@@ -1,4 +1,4 @@
-package config
+package gcp
 
 import "os"
 

@@ -7,7 +7,7 @@ import (
 	"log"
 	"net/http"
 
-	"piccolo.com/planner/pkg/common/db"
+	"piccolo.com/planner/pkg/common/gcp"
 )
 
 type PopulationHandler interface {
@@ -15,10 +15,10 @@ type PopulationHandler interface {
 }
 
 type populationHandler struct {
-	firestoreClient db.FirestoreClient
+	firestoreClient gcp.FirestoreClient
 }
 
-func ProvidePopulationHandler(firestoreClient db.FirestoreClient) PopulationHandler{
+func ProvidePopulationHandler(firestoreClient gcp.FirestoreClient) PopulationHandler{
 	return &populationHandler{
 		firestoreClient: firestoreClient,
 	}
