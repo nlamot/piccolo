@@ -3,20 +3,15 @@ package planner
 import (
 	"net/http"
 
-	"go.uber.org/dig"
-	"piccolo.com/planner/pkg/common/gcp"
 	"piccolo.com/planner/pkg/genetic/population"
 )
 
 
 // GeneratePopulation generates the population for the genetic internship planner
 func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
-	container := dig.New()
-	container.Provide(gcp.GetConfiguration)
-	container.Provide(gcp.ProvideFirestoreClient)
-	container.Provide(population.ProvidePopulationHandler)
+	container := population.NewContainer()
 
-	err := container.Invoke(func(handler population.PopulationHandler) {
+	err := container.Invoke(func(handler population.PopulationController) {
 		handler.Generate(w, r)
 	})
 

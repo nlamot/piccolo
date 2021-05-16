@@ -2,21 +2,17 @@ package gcp
 
 import (
 	"context"
-	"log"
 
 	"cloud.google.com/go/firestore"
 )
 
 
 type FirestoreClient interface {
-	Close() error
 }
 
-func ProvideFirestoreClient(config *Configuration) FirestoreClient {
+// ProvideFirestoreClient will setup the firestore client. 
+// This is not allowed to fail and the function will cause the service to exit if it does.
+func ProvideFirestoreClient(config *Configuration) (FirestoreClient, error) {
 	client, err := firestore.NewClient(context.Background(), config.ProjectID)
-	if err != nil {
-		log.Printf("firestore.NewClient: %v", err)
-		return nil
-	}
-	return client
+	return client, err
 }
