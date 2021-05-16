@@ -1,8 +1,6 @@
 steps:
-# TODO: Set this up so it works with the gcloud emulators
-# - name: 'registry.hub.docker.com/library/golang:1.13'
-#   args: ['go', 'test']
-#   dir: 'functions/generatepopulation'
+- name: 'registry.hub.docker.com/library/golang:1.13'
+  args: ['go', 'test', './...', '--cover']
 - name: 'gcr.io/cloud-builders/gcloud'
   args:
     - functions
