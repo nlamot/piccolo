@@ -10,6 +10,7 @@ func NewContainer() *dig.Container {
 	container.Provide(gcp.GetConfiguration)
 	container.Provide(gcp.ProvideFirestoreClient)
 	container.Provide(ProvidePopulationController)
-
+	container.Provide(ProvidePopulationService)
+	container.Provide(ProvidePopulationRepository)
 	return container
 }
