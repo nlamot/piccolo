@@ -9,14 +9,21 @@ import (
 
 // Generate generates the population for the genetic internship planner
 func (p *populationController) Generate(w http.ResponseWriter, r *http.Request) {
-	var d generatePopulationRequest
-	if err := json.NewDecoder(r.Body).Decode(&d); err == nil {
-		fmt.Fprint(w, "Hello, World!")
-		return
-	} else {
-		log.Print(err)
-		http.Error(w, "Internal error, please contact administrator.", http.StatusInternalServerError)
+	var d GeneratePopulationRequest
+	switch r.Method {
+	case http.MethodPost:
+		if err := json.NewDecoder(r.Body).Decode(&d); err == nil {
+			p.service.Generate(d)
+			fmt.Fprint(w, "Population generated.")
+			return
+		} else {
+			log.Print(err)
+			http.Error(w, "Internal error, please contact administrator.", http.StatusInternalServerError)
+		}
+	default:
+		http.Error(w, "Method not allowed.", http.StatusMethodNotAllowed)
 	}
+	
 }
 
 type PopulationController interface {
@@ -31,7 +38,4 @@ func ProvidePopulationController(service PopulationService) PopulationController
 	return &populationController{
 		service: service,
 	}
-}
-
-type generatePopulationRequest struct {
 }
