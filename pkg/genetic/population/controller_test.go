@@ -11,24 +11,24 @@ import (
 )
 
 var request *http.Request
-var expectedCreatePopulationRequest population.CreatePopulationRequest
+var expectedGeneratePopulationRequest population.GeneratePopulationRequest
 var response *httptest.ResponseRecorder
 var serviceMock = new(PopulationServiceMock)
 var controller = population.ProvidePopulationController(serviceMock)
 
-func TestCreatePopulationPassesInformationToService(t *testing.T) {
-	givenAValidRequestToCreatePopulations()
-	givenServiceCreatesThePopulationSuccesfully()
+func TestGeneratePopulationPassesInformationToService(t *testing.T) {
+	givenAValidRequestToGeneratePopulations()
+	givenServiceGeneratesThePopulationSuccesfully()
 
 	whenTheControllerIsCalled()
 
 	assert.Equal(t, http.StatusOK, response.Code)
-	assert.Equal(t, "Population created.", response.Body.String())
-	serviceMock.AssertCalled(t, "Create", expectedCreatePopulationRequest)
+	assert.Equal(t, "Population generated.", response.Body.String())
+	serviceMock.AssertCalled(t, "Generate", expectedGeneratePopulationRequest)
 }
 
-func TestCreatePopulationReturnsInternalErrorWhenCreateFails(t *testing.T) {
-	givenAnInvalidRequestToCreatePopulations()
+func TestGeneratePopulationReturnsInternalErrorWhenGenerateFails(t *testing.T) {
+	givenAnInvalidRequestToGeneratePopulations()
 
 	whenTheControllerIsCalled()
 
@@ -36,7 +36,7 @@ func TestCreatePopulationReturnsInternalErrorWhenCreateFails(t *testing.T) {
 	assert.Equal(t, "Internal error, please contact administrator.\n", response.Body.String())
 }
 
-func TestCreatePopulationThrowsErrorIfMethodNotPost(t *testing.T) {
+func TestGeneratePopulationThrowsErrorIfMethodNotPost(t *testing.T) {
 	var invalidMethods = []string{
 		http.MethodConnect,
 		http.MethodDelete,
@@ -53,7 +53,7 @@ func TestCreatePopulationThrowsErrorIfMethodNotPost(t *testing.T) {
 		assert.Equal(t, http.StatusMethodNotAllowed, response.Code)
 		assert.Equal(t, "Method not allowed.\n", response.Body.String())
 	}
-	givenAnInvalidRequestToCreatePopulations()
+	givenAnInvalidRequestToGeneratePopulations()
 
 	whenTheControllerIsCalled()
 
@@ -61,19 +61,19 @@ func TestCreatePopulationThrowsErrorIfMethodNotPost(t *testing.T) {
 	assert.Equal(t, "Internal error, please contact administrator.\n", response.Body.String())
 }
 
-func givenAValidRequestToCreatePopulations() {
+func givenAValidRequestToGeneratePopulations() {
 	request = httptest.NewRequest("POST", "/", strings.NewReader(`{ "size": 200 }`))
 	request.Header.Add("Content-Type", "application/json")
 }
 
-func givenServiceCreatesThePopulationSuccesfully() {
-	expectedCreatePopulationRequest = population.CreatePopulationRequest{
+func givenServiceGeneratesThePopulationSuccesfully() {
+	expectedGeneratePopulationRequest = population.GeneratePopulationRequest{
 		Size: 200,
 	}
-	serviceMock.On("Create", expectedCreatePopulationRequest).Return()
+	serviceMock.On("Generate", expectedGeneratePopulationRequest).Return()
 }
 
-func givenAnInvalidRequestToCreatePopulations() {
+func givenAnInvalidRequestToGeneratePopulations() {
 	request = httptest.NewRequest("POST", "/", strings.NewReader(`INVALID`))
 	request.Header.Add("Content-Type", "application/json")
 }
@@ -84,5 +84,5 @@ func givenARequestWithMethod(method string) {
 
 func whenTheControllerIsCalled() {
 	response = httptest.NewRecorder()
-	controller.Create(response, request)
+	controller.Generate(response, request)
 }

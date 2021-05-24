@@ -7,14 +7,14 @@ import (
 	"net/http"
 )
 
-// Create creates the population for the genetic internship planner
-func (p *populationController) Create(w http.ResponseWriter, r *http.Request) {
-	var d CreatePopulationRequest
+// Generate generates the population for the genetic internship planner
+func (p *populationController) Generate(w http.ResponseWriter, r *http.Request) {
+	var d GeneratePopulationRequest
 	switch r.Method {
 	case http.MethodPost:
 		if err := json.NewDecoder(r.Body).Decode(&d); err == nil {
-			p.service.Create(d)
-			fmt.Fprint(w, "Population created.")
+			p.service.Generate(d)
+			fmt.Fprint(w, "Population generated.")
 			return
 		} else {
 			log.Print(err)
@@ -27,7 +27,7 @@ func (p *populationController) Create(w http.ResponseWriter, r *http.Request) {
 }
 
 type PopulationController interface {
-	Create(http.ResponseWriter, *http.Request)
+	Generate(http.ResponseWriter, *http.Request)
 }
 
 type populationController struct {

@@ -10,14 +10,14 @@ import (
 var repositoryMock = new(PopulationRepositoryMock)
 var service = population.ProvidePopulationService(repositoryMock)
 
-func TestCreate(t *testing.T) {
-	service.Create(population.CreatePopulationRequest{})
+func TestGenerate(t *testing.T) {
+	service.Generate(population.GeneratePopulationRequest{})
 }
 
 type PopulationServiceMock struct {
 	mock.Mock
 }
 
-func (p *PopulationServiceMock) Create(r population.CreatePopulationRequest) {
+func (p *PopulationServiceMock) Generate(r population.GeneratePopulationRequest) {
 	p.Called(r)
 }
