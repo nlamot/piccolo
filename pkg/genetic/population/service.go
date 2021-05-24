@@ -1,15 +1,15 @@
 package population
 
 type PopulationService interface {
-	Generate(GeneratePopulationRequest)
+	Create(CreatePopulationRequest)
 }
 
 type populationService struct {
 	repository PopulationRepository
 }
 
-func (p *populationService) Generate(request GeneratePopulationRequest) {
-
+func (p *populationService) Create(request CreatePopulationRequest) {
+	
 }
 
 func ProvidePopulationService(repository PopulationRepository) PopulationService{
