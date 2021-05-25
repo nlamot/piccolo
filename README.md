@@ -1,4 +1,6 @@
 # Piccolo Internship Planner
+[![CodeQL](https://github.com/nlamot/piccolo/actions/workflows/codeql-analysis.yml/badge.svg?branch=master)](https://github.com/nlamot/piccolo/actions/workflows/codeql-analysis.yml)
+
 The purpose of the piccolo interenship planner is 
 * to provide a way to fit student teachers into the existing schedule of a high school, taking into account
   * the kind of interneship required by the students
