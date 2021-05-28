@@ -9,7 +9,6 @@ var aRoster = roster.Roster{
 			ClassID: "1AMa1",
 			ProfessorID: "JN",
 			SubjectID: "AAR",
-			ClassRoomID: "0115",
 			Moment: roster.LessonMoment{
 				DayOfWeek: 2,
 				LessonOfDay: 3,

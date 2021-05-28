@@ -1,20 +1,19 @@
 package roster
 
 type Roster struct {
-	UUID string
+	UUID    string
 	Lessons []Lesson
 }
 
 type Lesson struct {
-	ID int
-	ClassID string
+	ID          int
+	ClassID     string
 	ProfessorID string
-	SubjectID string
-	ClassRoomID string
-	Moment LessonMoment
+	SubjectID   string
+	Moment      LessonMoment
 }
 
 type LessonMoment struct {
-	DayOfWeek int
+	DayOfWeek   int
 	LessonOfDay int
 }
