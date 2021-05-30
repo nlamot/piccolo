@@ -30,8 +30,15 @@ func TestImportRosterCSVReturnsErrorForInvalidFileNil(t *testing.T) {
 	assert.Equal(t, roster.Roster{}, result)
 } 
 
+func TestImportRosterCSVReturnsErrorForMissingFile(t *testing.T) {
+	givenMissingRosterCSV(t)
+	var result, err = rosterManager.ImportCSV(csvFile)
+	assert.NotNil(t, err)
+	assert.Equal(t, roster.Roster{}, result)
+}
+
 func TestImportRosterCSVReturnsErrorForInvalidFile(t *testing.T) {
-	givenAnInvalidRosterCSV(t)
+	givenInvalidRosterCSV(t)
 	var result, err = rosterManager.ImportCSV(csvFile)
 	assert.NotNil(t, err)
 	assert.Equal(t, roster.Roster{}, result)
@@ -39,7 +46,7 @@ func TestImportRosterCSVReturnsErrorForInvalidFile(t *testing.T) {
 
 
 func givenAValidRosterCSV(t *testing.T) {
-	file, err := os.Open("test-roster-valid.csv")
+	file, err := os.Open("resources/test-roster-valid.csv")
 	if err != nil {
 		fmt.Println(err)
 		assert.Fail(t,"Test resources test-roster-valid.csv not found.")
@@ -73,7 +80,17 @@ func givenAValidRosterCSV(t *testing.T) {
 	}
 }
 
-func givenAnInvalidRosterCSV(t *testing.T) {
-	file, _ := os.Open("test-roster-invalid.csv")
+func givenMissingRosterCSV(t *testing.T) {
+	file, _ := os.Open("resources/does-not-exist.csv")
 	csvFile = csv.NewReader(file)
+}
+
+func givenInvalidRosterCSV(t *testing.T) {
+	file, err := os.Open("resources/test-roster-invalid.csv")
+	if err != nil {
+		fmt.Println(err)
+		assert.Fail(t,"Test resources test-roster-invalid.csv not found.")
+	}
+	csvFile = csv.NewReader(file)
+	csvFile.Comma = ';'
 }

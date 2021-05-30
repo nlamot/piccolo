@@ -27,7 +27,12 @@ func (r *rosterManager) ImportCSV(csv *csv.Reader) (roster.Roster, error) {
 		return importedRoster, err
     }  
     for _, line := range csvLines {
-		importedRoster.Lessons = append(importedRoster.Lessons, parseLesson(line))
+		lesson, lessonError := parseLesson(line)
+		if lessonError != nil {
+			fmt.Println("Failed to import roster csv.")
+			return importedRoster, lessonError
+		}
+		importedRoster.Lessons = append(importedRoster.Lessons, lesson)
     }
 	return importedRoster, nil
 }
@@ -36,8 +41,11 @@ func ProvideRosterManager() RosterManager {
 	return &rosterManager{}
 }
 
-func parseLesson(csvLine []string) roster.Lesson {
-	var id, _ = strconv.Atoi(csvLine[0])
+func parseLesson(csvLine []string) (roster.Lesson, error) {
+	if len(csvLine) != 9 {
+		return roster.Lesson{}, errors.New("import failed, csv has incorrect number of columns")
+	}
+ 	var id, _ = strconv.Atoi(csvLine[0])
 	var dayOfWeek, _ = strconv.Atoi(csvLine[5])
 	var lessonOfDay, _ = strconv.Atoi(csvLine[6])
 	return roster.Lesson{
@@ -49,5 +57,5 @@ func parseLesson(csvLine []string) roster.Lesson {
 			DayOfWeek: dayOfWeek,
 			LessonOfDay: lessonOfDay,
 		},
-	}
+	}, nil
 }
