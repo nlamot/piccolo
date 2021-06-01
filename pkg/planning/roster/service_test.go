@@ -13,6 +13,6 @@ var service = roster.ProvideRosterService(repositoryMock)
 
 func TestCreateRosterPassesInformationToTheRepository(t *testing.T) {
 	var UUID = uuid.New().String()
-	repositoryMock.On("Create", aRoster).Return(UUID)
-	assert.Equal(t, UUID, service.Create(aRoster))
+	repositoryMock.On("Create", aNewRoster).Return(UUID)
+	assert.Equal(t, UUID, service.Create(aNewRoster))
 }

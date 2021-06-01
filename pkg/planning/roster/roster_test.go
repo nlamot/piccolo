@@ -2,7 +2,7 @@ package roster_test
 
 import "piccolo.com/planner/pkg/planning/roster"
 
-var aRoster = roster.Roster{
+var aNewRoster = roster.Roster{
 	Lessons: []roster.Lesson{
 		{
 			ID: 1381,

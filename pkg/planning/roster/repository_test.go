@@ -7,11 +7,20 @@ import (
 	"piccolo.com/planner/pkg/planning/roster"
 )
 
-var repository = roster.ProvideRosterRepository()
+var firestoreClientMock = new(FirestoreClientMock)
+var repository = roster.ProvideRosterRepository(firestoreClientMock)
 
-func TestCreateRoster(t *testing.T) {
-	repository.Create(aRoster)
+var request roster.Roster
+
+func TestCreateRosterNewRoster(t *testing.T) {
+	givenAValidNewRoster()
+	repository.Create(request)
 }
+
+func givenAValidNewRoster(){
+	request = aNewRoster
+}
+
 
 type RosterRepositoryMock struct {
 	mock.Mock
