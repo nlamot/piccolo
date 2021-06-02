@@ -13,7 +13,6 @@ import (
 var request *http.Request
 var expectedGeneratePopulationRequest population.GeneratePopulationRequest
 var response *httptest.ResponseRecorder
-var serviceMock = new(PopulationServiceMock)
 var controller = population.ProvidePopulationController(serviceMock)
 
 func TestGeneratePopulationPassesInformationToService(t *testing.T) {

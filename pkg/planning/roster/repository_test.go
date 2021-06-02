@@ -1,32 +1,42 @@
 package roster_test
 
 import (
+	"context"
 	"testing"
 
-	"github.com/stretchr/testify/mock"
+	"github.com/google/uuid"
+	"github.com/stretchr/testify/assert"
+	"google.golang.org/genproto/googleapis/firestore/v1"
 	"piccolo.com/planner/pkg/planning/roster"
 )
 
-var firestoreClientMock = new(FirestoreClientMock)
 var repository = roster.ProvideRosterRepository(firestoreClientMock)
 
 var request roster.Roster
+var organisationUUID string
+var rosterUUID string
+
+var firestoreWriteResult *firestore.WriteResult
+var firestoreWriteError error
 
 func TestCreateRosterNewRoster(t *testing.T) {
-	givenAValidNewRoster()
-	repository.Create(request)
+	givenAValidNewRosterRequest()
+	givenTheFirestoreClientCreatesTheDocumentCorrectly()
+	createResult, err := repository.Create(organisationUUID, request)
+	assert.Nil(t, err)
+	assert.Equal(t, rosterUUID, createResult)
 }
 
-func givenAValidNewRoster(){
+func givenAValidNewRosterRequest() {
 	request = aNewRoster
+	organisationUUID = uuid.New().String()
 }
 
-
-type RosterRepositoryMock struct {
-	mock.Mock
-}
-
-func (r *RosterRepositoryMock) Create(roster roster.Roster) string {
-	args := r.Called(roster)
-	return args.String(0)
+func givenTheFirestoreClientCreatesTheDocumentCorrectly() {
+	firestoreWriteResult = &firestore.WriteResult{}
+	firestoreWriteError = nil
+	rosterUUID = uuid.New().String()
+	firestoreClientMock.On("Collection", "organisation-data/" + organisationUUID + "/rosters").Return(collectionRefMock)
+	collectionRefMock.On("Add", context.Background(), request).Return(documentRefMock, firestoreWriteResult, firestoreWriteError)
+	documentRefMock.On("ID").Return(rosterUUID)
 }

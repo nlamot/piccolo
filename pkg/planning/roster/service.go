@@ -2,15 +2,15 @@ package roster
 
 type RosterService interface {
 	// Create creates the new roster and returns the UUID
-	Create(Roster) string
+	Create(string, Roster) (string, error)
 }
 
 type rosterService struct {	
 	repository RosterRepository
 }
 
-func (s *rosterService) Create(r Roster) string {
-	return s.repository.Create(r)
+func (s *rosterService) Create(organisationUUID string, roster Roster) (string, error) {
+	return s.repository.Create(organisationUUID, roster)
 }
 
 func ProvideRosterService(repository RosterRepository) RosterService {

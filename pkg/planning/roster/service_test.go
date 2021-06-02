@@ -8,11 +8,13 @@ import (
 	"piccolo.com/planner/pkg/planning/roster"
 )
 
-var repositoryMock = new(RosterRepositoryMock)
 var service = roster.ProvideRosterService(repositoryMock)
 
 func TestCreateRosterPassesInformationToTheRepository(t *testing.T) {
 	var UUID = uuid.New().String()
-	repositoryMock.On("Create", aNewRoster).Return(UUID)
-	assert.Equal(t, UUID, service.Create(aNewRoster))
+	var organisationUUID = uuid.New().String()
+	repositoryMock.On("Create", organisationUUID, aNewRoster).Return(UUID, nil)
+	var result, err = service.Create(organisationUUID, aNewRoster)
+	assert.Equal(t, UUID, result)
+	assert.Nil(t, err)
 }

@@ -6,13 +6,23 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
-
-type FirestoreClient interface {
-}
-
 // ProvideFirestoreClient will setup the firestore client.
 // This is not allowed to fail and the function will cause the service to exit if it does.
 func ProvideFirestoreClient(config *Configuration) (FirestoreClient, error) {
 	client, err := firestore.NewClient(context.Background(), config.ProjectID)
-	return client, err
+	return &firestoreClient {
+		client: client, 
+	}, err
+}
+
+type FirestoreClient interface {
+	Collection(string) CollectionRef
+}
+
+type firestoreClient struct {
+	client *firestore.Client
+}
+
+func (f *firestoreClient) Collection(path string) CollectionRef {
+	return &collectionRef{ref: f.client.Collection(path)}
 }

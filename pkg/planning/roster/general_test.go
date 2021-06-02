@@ -1,5 +1,8 @@
 package roster_test
 
-type FirestoreClientMock struct {
-	
-}
+import "piccolo.com/planner/mocks"
+
+var firestoreClientMock = new(mocks.FirestoreClient)
+var repositoryMock = new(mocks.RosterRepository)
+var collectionRefMock = new(mocks.CollectionRef)
+var documentRefMock = new(mocks.DocumentRef)
