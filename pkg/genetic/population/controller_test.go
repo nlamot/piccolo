@@ -52,12 +52,6 @@ func TestGeneratePopulationThrowsErrorIfMethodNotPost(t *testing.T) {
 		assert.Equal(t, http.StatusMethodNotAllowed, response.Code)
 		assert.Equal(t, "Method not allowed.\n", response.Body.String())
 	}
-	givenAnInvalidRequestToGeneratePopulations()
-
-	whenTheControllerIsCalled()
-
-	assert.Equal(t, http.StatusInternalServerError, response.Code)
-	assert.Equal(t, "Internal error, please contact administrator.\n", response.Body.String())
 }
 
 func givenAValidRequestToGeneratePopulations() {
