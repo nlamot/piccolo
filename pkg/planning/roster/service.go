@@ -1,5 +1,6 @@
 package roster
 
+//go:generate go run github.com/vektra/mockery/cmd/mockery -name RosterService -output ./mock/ -outpkg mock
 type RosterService interface {
 	// Create creates the new roster and returns the UUID
 	Create(string, Roster) (string, error)

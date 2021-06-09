@@ -6,6 +6,7 @@ import (
 	"piccolo.com/planner/pkg/common/gcp"
 )
 
+//go:generate go run github.com/vektra/mockery/cmd/mockery -name RosterRepository -output ./mock/ -outpkg mock
 type RosterRepository interface {
 	Create(string, Roster) (string, error)
 }

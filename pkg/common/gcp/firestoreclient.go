@@ -15,6 +15,7 @@ func ProvideFirestoreClient(config *Configuration) (FirestoreClient, error) {
 	}, err
 }
 
+//go:generate go run github.com/vektra/mockery/cmd/mockery -name FirestoreClient -output ./mock/ -outpkg mock
 type FirestoreClient interface {
 	Collection(string) CollectionRef
 }

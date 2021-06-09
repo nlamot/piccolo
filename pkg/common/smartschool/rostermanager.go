@@ -9,6 +9,7 @@ import (
 	"piccolo.com/planner/pkg/planning/roster"
 )
 
+//go:generate go run github.com/vektra/mockery/cmd/mockery -name RosterManager -output ./mock/ -outpkg mock
 type RosterManager interface {
 	ImportCSV(*csv.Reader) (roster.Roster, error)
 }

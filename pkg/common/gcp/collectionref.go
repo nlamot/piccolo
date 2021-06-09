@@ -6,6 +6,7 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
+//go:generate go run github.com/vektra/mockery/cmd/mockery -name CollectionRef -output ./mock/ -outpkg mock
 type CollectionRef interface {
 	Add(context.Context, interface{}) (DocumentRef, WriteResult, error)
 }
