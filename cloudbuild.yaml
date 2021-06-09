@@ -3,15 +3,8 @@ steps:
   args: ['make', 'test']
   id: 'test'
 - name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'make'
   args:
-    - functions
-    - deploy
-    - --runtime=go113
-    - --trigger-http
-    - --source=.
-    - --entry-point=GeneratePopulation # Function entry point
-    - --region=europe-west1
-    - --allow-unauthenticated # This function is publicly available 
-    - generatepopulation # Function name
+    - function-generate-population
   waitFor: ['test']
   id: 'deployfunction'
