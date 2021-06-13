@@ -12,7 +12,7 @@ piccolo: clean generate
 test: generate
 	go test ./... -cover
 
-function-generate-population: generate
+function-generate-population:
 	gcloud functions deploy \
 		--runtime=go113 \
     	--trigger-http \
