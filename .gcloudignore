@@ -15,4 +15,7 @@
 
 node_modules
 #!include:.gitignore
+# Ignore test files, gcloud functions deploy doesn't execute go generate to generate the mocks for these tests.
+# This makes the deploy fail. Since gcloud funtions deploy doesn't actually execute the tests, we exclude these
+# files from being considered.
 **_test.go
