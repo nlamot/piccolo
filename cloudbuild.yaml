@@ -13,7 +13,7 @@ steps:
     - mb
     - gs://rosters
   waitFor: ['-']
-  id: 'createrostersbucket'k
+  id: 'createrostersbucket'
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'make'
   args:
