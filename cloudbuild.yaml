@@ -11,9 +11,9 @@ steps:
 - name: 'gcr.io/cloud-builders/gsutil'
   args:
     - mb
-    - gs://rosters
     - -l 
     - EU
+    - gs://rosters
   waitFor: ['-']
   id: 'createrostersbucket'
 - name: 'gcr.io/cloud-builders/gcloud'
