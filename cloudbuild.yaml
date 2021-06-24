@@ -12,7 +12,7 @@ steps:
   args:
     - mb
     - gs://rosters
-    - l 
+    - -l 
     - EU
   waitFor: ['-']
   id: 'createrostersbucket'
