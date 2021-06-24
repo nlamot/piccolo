@@ -7,7 +7,7 @@ generate:
 test: generate
 	go test ./... -cover
 
-function-generate-population:
+function-population-generate:
 	gcloud functions deploy \
 		--runtime=go113 \
     	--trigger-http \
@@ -15,4 +15,14 @@ function-generate-population:
      	--entry-point=GeneratePopulation \
     	--region=europe-west1 \
     	--allow-unauthenticated \
-		generatepopulation
+		populationgenerate
+
+function-roster-import:
+	gcloud functions deploy \
+		--runtime=go113 \
+    	--trigger-resource rosters \
+		--trigger-event google.storage.object.finalize \
+    	--source=. \
+     	--entry-point=ImportRoster \
+    	--region=europe-west1 \
+		rosterimport

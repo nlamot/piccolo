@@ -8,16 +8,16 @@ import (
 	"piccolo.com/planner/pkg/genetic/population"
 )
 
-var container *dig.Container
-var containerOnce sync.Once
+var populationContainer *dig.Container
+var populationContainerOnce sync.Once
 
 // GeneratePopulation generates the population for the genetic internship planner
 func GeneratePopulation(w http.ResponseWriter, r *http.Request) {
-	containerOnce.Do(func() {
-		container = population.NewContainer()
+	populationContainerOnce.Do(func() {
+		populationContainer = population.NewContainer()
 	})
 
-	err := container.Invoke(func(handler population.PopulationController) {
+	err := populationContainer.Invoke(func(handler population.PopulationController) {
 		handler.Generate(w, r)
 	})
 

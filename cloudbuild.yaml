@@ -5,6 +5,18 @@ steps:
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'make'
   args:
-    - function-generate-population
+    - function-population-generate
   waitFor: ['test']
-  id: 'deployfunction'
+  id: 'populationgenerate'
+- name: 'gcr.io/cloud-builders/gsutil'
+  args:
+    - mb
+    - gs://rosters
+  waitFor: ['-']
+  id: 'createrostersbucket'k
+- name: 'gcr.io/cloud-builders/gcloud'
+  entrypoint: 'make'
+  args:
+    - function-roster-import
+  waitFor: ['createrostersbucket','test']
+  id: 'rosterimport'
