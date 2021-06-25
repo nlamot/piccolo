@@ -5,6 +5,7 @@ go 1.13
 require (
 	cloud.google.com/go v0.83.0
 	cloud.google.com/go/firestore v1.5.0
+	cloud.google.com/go/storage v1.15.0
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/uuid v1.2.0
 	github.com/stretchr/objx v0.3.0 // indirect

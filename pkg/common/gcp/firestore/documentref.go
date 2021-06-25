@@ -1,4 +1,4 @@
-package gcp
+package firestore
 
 import "cloud.google.com/go/firestore"
 

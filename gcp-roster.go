@@ -2,6 +2,7 @@ package planner
 
 import (
 	"context"
+	"encoding/csv"
 	"fmt"
 	"log"
 	"sync"
@@ -9,11 +10,15 @@ import (
 	"cloud.google.com/go/functions/metadata"
 	"go.uber.org/dig"
 	"piccolo.com/planner/pkg/common/gcp/gcs"
+	"piccolo.com/planner/pkg/common/smartschool"
 	"piccolo.com/planner/pkg/planning/roster"
 )
 
 var rosterContainer *dig.Container
 var rosterContainerOnce sync.Once
+
+var smartschoolContainer *dig.Container
+var smartschoolContainerOnce sync.Once
 
 // ImportRoster imports a roster to the firestore
 func ImportRoster(ctx context.Context, e gcs.GCSEvent) error {
@@ -29,12 +34,40 @@ func ImportRoster(ctx context.Context, e gcs.GCSEvent) error {
 	log.Printf("Created: %v\n", e.TimeCreated)
 	log.Printf("Updated: %v\n", e.Updated)
 
+	smartschoolContainerOnce.Do(func() {
+		smartschoolContainer = smartschool.NewContainer()
+	})
+
+	var newRoster roster.Roster
+	smartschoolError := smartschoolContainer.Invoke(func(manager smartschool.RosterManager){
+		client, gcsError := gcs.ProvideStorageClient()
+		if gcsError != nil {
+			panic(gcsError)
+		}
+		upload, uploadError := client.Bucket(e.Bucket).Object(e.Name).NewReader(context.Background())
+		if uploadError != nil {
+			panic(uploadError)
+		}
+		var rosterError error
+		newRoster, rosterError = manager.ImportCSV(csv.NewReader(upload))
+		if rosterError != nil {
+			panic(rosterError)
+		}
+	})
+
+	if smartschoolError != nil {
+		panic(smartschoolError)
+	}
+
 	rosterContainerOnce.Do(func() {
 		rosterContainer = roster.NewContainer()
 	})
-
 	er := rosterContainer.Invoke(func(service roster.RosterService) {
-		service.Create("orguuid", roster.Roster{})
+		rosterId, rEr := service.Create("hfam", newRoster)
+		if rEr != nil {
+			panic(rEr)
+		}
+		fmt.Printf("ID of new Roster: %s", rosterId)
 	})
 
 	if er != nil {

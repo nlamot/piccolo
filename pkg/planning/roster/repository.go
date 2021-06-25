@@ -3,7 +3,7 @@ package roster
 import (
 	"context"
 
-	"piccolo.com/planner/pkg/common/gcp"
+	"piccolo.com/planner/pkg/common/gcp/firestore"
 )
 
 //go:generate go run github.com/vektra/mockery/cmd/mockery -name RosterRepository -output ./mock/ -outpkg mock
@@ -12,7 +12,7 @@ type RosterRepository interface {
 }
 
 type rosterRepository struct {
-	firestoreClient gcp.FirestoreClient
+	firestoreClient firestore.FirestoreClient
 }
 
 func (r *rosterRepository) Create(organisationUUID string, roster Roster) (string, error) {
@@ -21,7 +21,7 @@ func (r *rosterRepository) Create(organisationUUID string, roster Roster) (strin
 	return doc.ID(), err
 }
 
-func ProvideRosterRepository(firestoreClient gcp.FirestoreClient) RosterRepository {
+func ProvideRosterRepository(firestoreClient firestore.FirestoreClient) RosterRepository {
 	return &rosterRepository{
 		firestoreClient: firestoreClient,
 	}
