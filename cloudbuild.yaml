@@ -20,5 +20,5 @@ steps:
   entrypoint: 'make'
   args:
     - function-roster-import
-  waitFor: ['createrostersbucket','test']
+  waitFor: ['test']
   id: 'rosterimport'
