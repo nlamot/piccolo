@@ -66,6 +66,7 @@ func ImportRoster(ctx context.Context, e gcs.GCSEvent) error {
 		rosterContainer = roster.NewContainer()
 	})
 	er := rosterContainer.Invoke(func(service roster.RosterService) {
+		fmt.Print(newRoster)
 		rosterId, rEr := service.Create("hfam", newRoster)
 		if rEr != nil {
 			panic(rEr)
