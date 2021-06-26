@@ -36,7 +36,7 @@ func givenTheFirestoreClientCreatesTheDocumentCorrectly() {
 	firestoreWriteResult = &firestore.WriteResult{}
 	firestoreWriteError = nil
 	rosterUUID = uuid.New().String()
-	firestoreClientMock.On("Collection", "organisation-data/" + organisationUUID + "/rosters").Return(collectionRefMock)
+	firestoreClientMock.On("Collection", "/organisation-data/" + organisationUUID + "/rosters").Return(collectionRefMock)
 	collectionRefMock.On("Add", context.Background(), request).Return(documentRefMock, firestoreWriteResult, firestoreWriteError)
 	documentRefMock.On("ID").Return(rosterUUID)
 }
