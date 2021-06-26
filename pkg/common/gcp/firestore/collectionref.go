@@ -17,5 +17,6 @@ type collectionRef struct {
 
 func (c *collectionRef) Add(ctx context.Context, data interface{}) (DocumentRef, WriteResult, error) {
 	dr, wr, err := c.ref.Add(ctx, data)
+	
 	return documentRef{ref: dr}, writeResult{res: wr}, err
 }
