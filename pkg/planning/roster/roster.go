@@ -1,19 +1,19 @@
 package roster
 
 type Roster struct {
-	UUID    string
-	Lessons []Lesson
+	UUID    string 		`firestore:"uuid"`
+	Lessons []Lesson	`firestore:"lessons"`
 }
 
 type Lesson struct {
-	ID          int
-	ClassID     string
-	ProfessorID string
-	SubjectID   string
-	Moment      LessonMoment
+	ID          int				`firestore:"id"`
+	ClassID     string			`firestore:"classId"`
+	ProfessorID string			`firestore:"professorId"`
+	SubjectID   string			`firestore:"subjectId"`
+	Moment      LessonMoment	`firestore:"moment"`
 }
 
 type LessonMoment struct {
-	DayOfWeek   int
-	LessonOfDay int
+	DayOfWeek   int		`firestore:"dayOfWeek"`
+	LessonOfDay int		`firestore:"lessonOfDay"`
 }
