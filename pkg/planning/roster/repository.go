@@ -17,7 +17,7 @@ type rosterRepository struct {
 
 func (r *rosterRepository) Create(organisationUUID string, roster Roster) (string, error) {
 	rosters := r.firestoreClient.Collection("/organisation-data/" + organisationUUID + "/rosters")
-	doc, _, err := rosters.Add(context.Background(), roster)
+	doc, _, err := rosters.Add(context.Background(), &roster)
 	if err != nil {
 		return "", err
 	}
