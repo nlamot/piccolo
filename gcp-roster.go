@@ -49,7 +49,9 @@ func ImportRoster(ctx context.Context, e gcs.GCSEvent) error {
 			panic(uploadError)
 		}
 		var rosterError error
-		newRoster, rosterError = manager.ImportCSV(csv.NewReader(upload))
+		csv := csv.NewReader(upload)
+		csv.Comma = ';'
+		newRoster, rosterError = manager.ImportCSV(csv)
 		if rosterError != nil {
 			fmt.Println(rosterError)
 			panic(rosterError)
