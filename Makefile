@@ -9,7 +9,7 @@ test: generate
 
 function-population-generate:
 	gcloud functions deploy \
-		--runtime=go113 \
+		--runtime=go116 \
     	--trigger-http \
     	--source=. \
      	--entry-point=GeneratePopulation \
@@ -19,7 +19,7 @@ function-population-generate:
 
 function-roster-import:
 	gcloud functions deploy \
-		--runtime=go113 \
+		--runtime=go116 \
     	--trigger-resource rosters \
 		--trigger-event google.storage.object.finalize \
     	--source=. \
