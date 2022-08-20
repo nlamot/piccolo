@@ -1,6 +1,6 @@
 package population
 
-//go:generate go run github.com/vektra/mockery/cmd/mockery -name PopulationService -output ./mock/ -outpkg mock
+//go:generate mockery --name PopulationService --output ./mock/ --outpkg mock
 type PopulationService interface {
 	Generate(GeneratePopulationRequest)
 }

@@ -10,12 +10,12 @@ import (
 // This is not allowed to fail and the function will cause the service to exit if it does.
 func ProvideStorageClient() (StorageClient, error) {
 	client, err := storage.NewClient(context.Background())
-	return &storageClient {
-		client: client, 
+	return &storageClient{
+		client: client,
 	}, err
 }
 
-//go:generate go run github.com/vektra/mockery/cmd/mockery -name StorageClient -output ./mock/ -outpkg mock
+//go:generate mockery --name StorageClient --output ./mock/ --outpkg mock
 type StorageClient interface {
 	Bucket(string) BucketHandle
 }

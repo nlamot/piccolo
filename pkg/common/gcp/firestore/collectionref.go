@@ -6,7 +6,7 @@ import (
 	"cloud.google.com/go/firestore"
 )
 
-//go:generate go run github.com/vektra/mockery/cmd/mockery -name CollectionRef -output ./mock/ -outpkg mock
+//go:generate mockery --name CollectionRef --output ./mock/ --outpkg mock
 type CollectionRef interface {
 	Add(context.Context, interface{}) (DocumentRef, WriteResult, error)
 }
@@ -17,6 +17,6 @@ type collectionRef struct {
 
 func (c *collectionRef) Add(ctx context.Context, data interface{}) (DocumentRef, WriteResult, error) {
 	dr, wr, err := c.ref.Add(ctx, data)
-	
+
 	return documentRef{ref: dr}, writeResult{res: wr}, err
 }

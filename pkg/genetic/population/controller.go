@@ -25,7 +25,8 @@ func (p *populationController) Generate(w http.ResponseWriter, r *http.Request) 
 	}
 
 }
-//go:generate go run github.com/vektra/mockery/cmd/mockery -name PopulationController -output ./mock/ -outpkg mock
+
+//go:generate mockery --name PopulationController --output ./mock/ --outpkg mock
 type PopulationController interface {
 	Generate(http.ResponseWriter, *http.Request)
 }

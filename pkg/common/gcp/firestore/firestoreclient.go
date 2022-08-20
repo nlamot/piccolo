@@ -11,12 +11,12 @@ import (
 // This is not allowed to fail and the function will cause the service to exit if it does.
 func ProvideFirestoreClient(config *gcp.Configuration) (FirestoreClient, error) {
 	client, err := firestore.NewClient(context.Background(), config.ProjectID)
-	return &firestoreClient {
-		client: client, 
+	return &firestoreClient{
+		client: client,
 	}, err
 }
 
-//go:generate go run github.com/vektra/mockery/cmd/mockery -name FirestoreClient -output ./mock/ -outpkg mock
+//go:generate mockery --name FirestoreClient --output ./mock/ --outpkg mock
 type FirestoreClient interface {
 	Collection(string) CollectionRef
 }
