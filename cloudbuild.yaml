@@ -1,5 +1,5 @@
 steps:
-- name: 'registry.hub.docker.com/library/golang:1.16'
+- name: './Dockerfile'
   args: ['make', 'test']
   id: 'test'
 # TODO Replace with terraform
