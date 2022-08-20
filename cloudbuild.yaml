@@ -1,21 +1,14 @@
 steps:
-- name: 'registry.hub.docker.com/library/golang:1.13'
+- name: 'registry.hub.docker.com/library/golang:1.16'
   args: ['make', 'test']
   id: 'test'
+# TODO Replace with terraform
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'make'
   args:
     - function-population-generate
   waitFor: ['test']
   id: 'populationgenerate'
-# - name: 'gcr.io/cloud-builders/gsutil'
-#   args:
-#     - mb
-#     - -l 
-#     - EU
-#     - gs://rosters
-#   waitFor: ['-']
-#   id: 'createrostersbucket'
 - name: 'gcr.io/cloud-builders/gcloud'
   entrypoint: 'make'
   args:
