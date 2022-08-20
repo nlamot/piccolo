@@ -1,5 +1,5 @@
 steps:
-- name: './Dockerfile'
+- name: 'gcr.io/piccolo-287818/piccolo-function-builder:0.1'
   args: ['make', 'test']
   id: 'test'
 # TODO Replace with terraform
