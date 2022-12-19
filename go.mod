@@ -3,7 +3,7 @@ module piccolo.com/planner
 go 1.16
 
 require (
-	cloud.google.com/go/firestore v1.6.1
+	cloud.google.com/go/firestore v1.9.0
 	cloud.google.com/go/functions v1.9.0
 	cloud.google.com/go/storage v1.28.1
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
