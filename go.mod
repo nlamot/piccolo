@@ -8,7 +8,7 @@ require (
 	cloud.google.com/go/storage v1.28.1
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/google/uuid v1.3.0
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.2
 	go.uber.org/dig v1.15.0
 	google.golang.org/genproto v0.0.0-20221201164419-0e50fba7f41c
 )
